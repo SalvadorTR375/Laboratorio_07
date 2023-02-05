@@ -33,4 +33,22 @@ router.get('/delete/:id', async (req,res) =>{
   res.redirect('/')
 });
 
+// Editar un post -> ruta 1 de 2 . Esta solo es para redirigir a edit.ejs
+router.get('/edit/:id', async (req,res) =>{
+
+  let id = req.params.id
+  let post = await Post.findById(id)
+  res.render('edit', {post}) // edit.ejs ya tiene a su disposicion el objeto 'post'
+});
+
+// Editar un post -> ruta 2 de 2 . Para actualizar los datos.
+router.post('/edit/:id', async (req,res) =>{
+
+  let id = req.params.id
+  await Post.updateOne({_id: id}, req.body)
+
+  res.redirect('/') // edit.ejs ya tiene a su disposicion el objeto 'post'
+});
+
+
 module.exports = router;
