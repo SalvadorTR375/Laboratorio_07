@@ -26,8 +26,18 @@ router.post('/newPost', async (req,res) =>{
   res.redirect("/");  
 });
 
-// Eliminar un post
+// Eliminar un post -> ruta 1 de 2 . Esta solo es para redirigir a delete.ejs
 router.get('/delete/:id', async (req,res) =>{
+  
+  let id = req.params.id
+  let post = await Post.findById(id)
+  res.render('delete', {post})
+
+});
+
+// Eliminar un post -> ruta 2 de 2 . Para eliminar los datos.
+router.post('/delete/:id', async (req,res) =>{
+
   let id = req.params.id
   await Post.remove({_id:id});
   res.redirect('/')
