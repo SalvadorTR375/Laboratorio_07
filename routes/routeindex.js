@@ -26,4 +26,11 @@ router.post('/newPost', async (req,res) =>{
   res.redirect("/");  
 });
 
+// Eliminar un post
+router.get('/delete/:id', async (req,res) =>{
+  let id = req.params.id
+  await Post.remove({_id:id});
+  res.redirect('/')
+});
+
 module.exports = router;
